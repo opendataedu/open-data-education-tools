@@ -1,0 +1,38 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Access opendata.education</title>
+    <meta name="description" content="Access opendata.education">
+    <meta name="author" content="ZiNET Data Solutions Limited">
+
+</head>
+
+<body>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
+    <script>
+        $.ajax({
+            url: 'https://api.opendata.education/rest/sif/requests/SchoolInfos?URN=100000',
+            beforeSend: function (xhr) {
+                // To use opendata.education without a token then ommit the Authorization header
+                // Note that accessing the API without a token is more throttled than with a token
+                xhr.setRequestHeader('Authorization', 'Bearer YOUR_PERSONAL_ACCESS_TOKEN');
+
+                // Decide what output you want:
+                // For JSON output use application/json
+                // For XML output use application/xml, or don't include the Accept header at all
+                xhr.setRequestHeader('Accept', 'application/json');
+                // xhr.setRequestHeader('Accept', 'application/xml');
+            }
+        }).done(function (data) {
+            console.log(data);
+        }).fail(function (data) {
+            console.error(data);
+        });
+    </script>
+</body>
+
+</html>
